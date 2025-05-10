@@ -5,10 +5,24 @@ public abstract class Vehiculo {
 	protected Double limiteCapacidadKg;
 	protected Integer cantidadDestinos;
 	protected Paquete[] cantidadDePaquetes;
+	protected Double pesoAcumulado = 0.0;
+	protected Double volumenAcumulado = 0.0;
 
 	abstract protected Boolean puedeTransportar(Paquete paquete);
 
-	abstract public Boolean agregarPaquete(Paquete paquete);
+	public Boolean agregarPaquete(Paquete paquete) {
+			if (puedeTransportar(paquete)) {
+				for (int i = 0; i < cantidadDePaquetes.length; i++) {
+					if (cantidadDePaquetes[i] == null) {
+						cantidadDePaquetes[i] = paquete;
+						pesoAcumulado += paquete.getPeso();
+						volumenAcumulado += paquete.calcularVolumen();
+						return true;
+					}
+				}
+			}
+			return false;
+		}
 
 	public String getDestinos() {
 		String resultado = "";
@@ -20,12 +34,4 @@ public abstract class Vehiculo {
 		return resultado;
 	}
 
-	protected Boolean calcularPesoDePaquetes() {
-		if (cantidadDePaquetes[0] != null && cantidadDePaquetes[1] != null) {
-			if (cantidadDePaquetes[0].getPeso() + cantidadDePaquetes[1].getPeso() > limiteCapacidadKg) {
-				return false;
-			}
-		}
-		return true;
-	}
 }

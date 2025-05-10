@@ -12,55 +12,20 @@ public class Automovil extends Vehiculo {
 
 	@Override
 	protected Boolean puedeTransportar(Paquete paquete) {
-		Boolean entraEnLosLimites = true;
-		Boolean hayEspacioParaPaquetes = false;
-
+		Boolean puedeTransportar = false;
 		if (paquete.getDestino() == null) {
 			return false;
 		}
 
-		if (paquete.calcularVolumen() >= limiteVolumen || paquete.getPeso() >= limiteCapacidadKg
-				|| !calcularPesoDePaquetes()) {
-			entraEnLosLimites = false;
-		}
+		if (entraEnLosLimites(paquete) && verificarCiudad(paquete) && verificarCiudadYDireccion(paquete)
+				&& verificarPaquetes() && hayEspacioParaPaquetes()) {
 
-		for (int i = 0; i < cantidadDePaquetes.length; i++) {
-			Boolean ciudadRepetida = false;
-			if (cantidadDePaquetes[i] != null && cantidadDePaquetes[i].getCiudad().equals((paquete).getCiudad())
-					&& !ciudadRepetida) {
-				ciudadRepetida = true;
-				cantidadDeCiudades += 1;
-			}
-			if (cantidadDePaquetes[i] != null && cantidadDePaquetes[i].getCiudad().equals(paquete.getCiudad())
-					&& cantidadDePaquetes[i].getDireccion().equals(paquete.getDireccion())) {
-				return false;
-			}
-			if (cantidadDeCiudades > 3) {
-				return false;
-			}
+			puedeTransportar = true;
 		}
-
-		for (Paquete p : cantidadDePaquetes) {
-			if (p == null) {
-				hayEspacioParaPaquetes = true;
-				break;
-			}
+		if (puedeTransportar) {
+			CantidadDeCiudades(paquete);
 		}
-
-		return entraEnLosLimites && hayEspacioParaPaquetes;
-	}
-
-	@Override
-	public Boolean agregarPaquete(Paquete paquete) {
-		if (puedeTransportar(paquete)) {
-			for (int i = 0; i < cantidadDePaquetes.length; i++) {
-				if (cantidadDePaquetes[i] == null) {
-					cantidadDePaquetes[i] = paquete;
-					return true;
-				}
-			}
-		}
-		return false;
+		return puedeTransportar;
 	}
 
 	@Override
@@ -68,4 +33,60 @@ public class Automovil extends Vehiculo {
 		return "Automóvil";
 	}
 
+	private void CantidadDeCiudades(Paquete paquete) {
+		boolean ciudadRepetida = false;
+		for (int i = 0; i < cantidadDePaquetes.length; i++) {
+			if (cantidadDePaquetes[i] != null && paquete.getCiudad().equals(cantidadDePaquetes[i].getCiudad())) {
+				ciudadRepetida = true;
+				break;
+			}
+		}
+		if (!ciudadRepetida) {
+			cantidadDeCiudades += 1;
+		}
+
+	}
+
+	private boolean entraEnLosLimites(Paquete paquete) {
+		if ((paquete.calcularVolumen() + volumenAcumulado) > limiteVolumen
+				|| (paquete.getPeso() + pesoAcumulado) > limiteCapacidadKg) {
+			return false;
+		}
+		return true;
+	}
+
+	private boolean verificarCiudad(Paquete paquete) {
+		for (int i = 0; i < cantidadDePaquetes.length; i++) {
+			if (cantidadDePaquetes[i] != null && cantidadDePaquetes[i].getCiudad().equals((paquete).getCiudad())) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean verificarCiudadYDireccion(Paquete paquete) {
+		for (int i = 0; i < cantidadDePaquetes.length; i++) {
+			if (cantidadDePaquetes[i] != null && cantidadDePaquetes[i].getCiudad().equals(paquete.getCiudad())
+					&& cantidadDePaquetes[i].getDireccion().equals(paquete.getDireccion())) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean verificarPaquetes() {
+		if (cantidadDeCiudades >= 3) {
+			return false;
+		}
+		return true;
+	}
+
+	private boolean hayEspacioParaPaquetes() {
+		for (Paquete p : cantidadDePaquetes) {
+			if (p == null) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
