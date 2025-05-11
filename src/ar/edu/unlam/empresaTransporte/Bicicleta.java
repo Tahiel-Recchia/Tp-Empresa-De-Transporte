@@ -1,6 +1,7 @@
 package ar.edu.unlam.empresaTransporte;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class Bicicleta extends Vehiculo{
@@ -43,6 +44,26 @@ public class Bicicleta extends Vehiculo{
 		if(paquete.getDestino() == null) return true;
 		if(paquete.getCiudad() != null && ciudades.contains(paquete.getCiudad())) return true;
 		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(ciudades);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Bicicleta other = (Bicicleta) obj;
+		return Objects.equals(ciudades, other.ciudades);
 	}
 
 

@@ -13,6 +13,8 @@ public class Automovil extends Vehiculo {
 		this.limiteCapacidadKg = 500.0;
 	}
 
+
+
 	@Override
 	protected Boolean puedeTransportar(Paquete paquete) {
 		if (paquete.getDestino() == null) return false;
@@ -34,6 +36,26 @@ public class Automovil extends Vehiculo {
 
 		if(destinos.contains(paquete.getDestino())) return false;
 	return true;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(ciudades, destinos);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Automovil other = (Automovil) obj;
+		return Objects.equals(ciudades, other.ciudades) && Objects.equals(destinos, other.destinos);
 	}
 
 }
