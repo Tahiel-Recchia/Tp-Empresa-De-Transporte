@@ -1,48 +1,51 @@
 package ar.edu.unlam.empresaTransporte;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Bicicleta extends Vehiculo{
+	
+	protected Set<String> ciudades = new HashSet<>();
+	
 	public Bicicleta() {
 		this.limiteVolumen = 0.125;
 		this.cantidadDestinos = 1;
 		this.limiteCapacidadKg = 15.0;
-		this.cantidadDePaquetes = new Paquete[2];
+	
 	}
 
 	@Override
 	protected Boolean puedeTransportar(Paquete paquete) {
-		Boolean entraEnLosLimites = true;
-		Boolean ciudadesIguales = true;
-		Boolean hayEspacioParaPaquetes = false;
-		
-		if(cantidadDePaquetes[0] != null && cantidadDePaquetes[1] == null && paquete.getDestino() == null) {
-			paquete.setDestino(cantidadDePaquetes[0].getDestino());
-		}
-		
-		if ((paquete.calcularVolumen() + volumenAcumulado)  > limiteVolumen || (paquete.getPeso() + pesoAcumulado) > limiteCapacidadKg) {
-			entraEnLosLimites = false;
-		}
+		if(!entraEnLosLimites(paquete)) return false;
+		if(!queLasCiudadesSeanIguales(paquete)) return false;
+		if(!hayEspacioParaPaquetes()) return false;
+		verificarDestinoDelSegundoPaqueteYAsignarlo(paquete);
 
-		if (cantidadDePaquetes[0] != null) {
-			if (!cantidadDePaquetes[0].getCiudad().toLowerCase().equals(paquete.getCiudad().toLowerCase())) {
-				ciudadesIguales = false;
-			}
+		if(ciudades.size() > 0) {
+			return !ciudades.add(paquete.getCiudad());
+		} else {
+			return ciudades.add(paquete.getCiudad());
 		}
-
-		for (Paquete p : cantidadDePaquetes) {
-			if (p == null) {
-				hayEspacioParaPaquetes = true;
-			}
-		}
-
-		return entraEnLosLimites && ciudadesIguales && hayEspacioParaPaquetes;
 	}
-
-
 	
-	@Override
-	public String toString() {
-		return "Bicicleta";  
+	private boolean hayEspacioParaPaquetes() {
+		return paquetes.size() < 2;
 	}
+
+	private void verificarDestinoDelSegundoPaqueteYAsignarlo(Paquete paquete) {
+		if(paquetes.size() > 0 && paquete.getDestino() == null) {
+			paquete.setDestino(paquetes.get(0).getDestino());
+		}
+	}
+	
+	private boolean queLasCiudadesSeanIguales(Paquete paquete) {
+		if(ciudades.size() == 0) return true;
+		if(paquete.getDestino() == null) return true;
+		if(paquete.getCiudad() != null && ciudades.contains(paquete.getCiudad())) return true;
+		return false;
+	}
+
+
 
 	
 }
