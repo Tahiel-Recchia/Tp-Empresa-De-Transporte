@@ -8,7 +8,7 @@ class automovilTest {
 
 	@Test
 	public void QueNoSePaseDelLimiteDePeso() {
-		Automovil auto = new Automovil();
+		Automovil auto = new Automovil(1);
 		Destino destino1 = new Destino("Moron", "acha 675");
 		Destino destino2 = new Destino("Moron", "Curupaity 628");
 		Paquete paquete1 = new Paquete(0.1, 0.1, 0.1, 498.0, destino1);
@@ -19,7 +19,7 @@ class automovilTest {
 	
 	@Test
 	public void queNoSePuedanRepetirLosDestinos() {
-		Automovil auto = new Automovil();
+		Automovil auto = new Automovil(1);
 		Destino destino1 = new Destino("Moron", "acha 675");
 		Paquete paquete1 = new Paquete(0.1, 0.1, 0.1, 498.0, destino1);
 		Paquete paquete2 = new Paquete(0.1, 0.1, 0.1, 1.0, destino1);
@@ -29,7 +29,7 @@ class automovilTest {
 	
 	@Test
 	public void queNoAbarqueMasDeTresCiudades() {
-		Automovil auto = new Automovil();
+		Automovil auto = new Automovil(1);
 		Destino destino1 = new Destino("Moron", "acha 675");
 		Destino destino2 = new Destino("Ciudadela", "Rivadavia 19022");
 		Destino destino3 = new Destino("Springfield", "Calle falsa 123");
@@ -46,7 +46,7 @@ class automovilTest {
 	
 	@Test
 	public void queNoSePaseDelLimiteDeVolumen() {
-		Automovil auto = new Automovil();
+		Automovil auto = new Automovil(1);
 		Destino destino1 = new Destino("Moron", "acha 675");
 		Destino destino2 = new Destino("Moron", "Curupaity 628");
 		Paquete paquete1 = new Paquete(1.5, 1.5, 0.1, 1.0, destino1);

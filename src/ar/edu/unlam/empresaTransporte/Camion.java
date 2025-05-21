@@ -1,7 +1,10 @@
 package ar.edu.unlam.empresaTransporte;
 
+import java.util.Objects;
+
 public class Camion extends Vehiculo{
-	public Camion() {
+	public Camion(Integer codigo) {
+		super(codigo);
 		this.limiteVolumen = 20.0;
 		this.cantidadDestinos = 3;
 		this.limiteCapacidadKg = 16000.0;
@@ -14,9 +17,11 @@ public class Camion extends Vehiculo{
 		return true;
 	}
 
-	@Override
 	public int hashCode() {
-		return super.hashCode();
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(codigoDeVehiculo);
+		return result;
 	}
 
 	@Override
@@ -27,7 +32,8 @@ public class Camion extends Vehiculo{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		return true;
+		Camion other = (Camion) obj;
+		return Objects.equals(codigoDeVehiculo, other.codigoDeVehiculo);
 	}
 
 

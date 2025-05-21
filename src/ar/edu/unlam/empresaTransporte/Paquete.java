@@ -26,37 +26,6 @@ public class Paquete {
 		return alto * ancho * profundo;
 	}
 
-	public Double getAlto() {
-		return alto;
-	}
-
-	public void setAlto(Double alto) {
-		this.alto = alto;
-	}
-
-	public Double getAncho() {
-		return ancho;
-	}
-
-	public void setAncho(Double ancho) {
-		this.ancho = ancho;
-	}
-
-	public Double getProfundo() {
-		return profundo;
-	}
-
-	public void setProfundo(Double profundo) {
-		this.profundo = profundo;
-	}
-
-	public Double getPeso() {
-		return peso;
-	}
-
-	public void setPeso(Double peso) {
-		this.peso = peso;
-	}
 
 	public String getCiudad() {
 		return destino.getCiudad();
@@ -66,8 +35,8 @@ public class Paquete {
 		return destino.getDireccion();
 	}
 	
-	public String getDestinos() {
-		return destino.toString();
+	public Double getPeso() {
+		return this.peso;
 	}
 	
 	public Destino getDestino() {

@@ -8,7 +8,7 @@ class camionTest {
 
 	@Test
 	public void QueNoSePaseDelLimiteDePeso() {
-		Camion camion = new Camion();
+		Camion camion = new Camion(1);
 		Destino destino1 = new Destino("Moron", "acha 675");
 		Destino destino2 = new Destino("Moron", "Curupaity 628");
 		Paquete paquete1 = new Paquete(0.1, 0.1, 0.1, 15900.0, destino1);
@@ -19,7 +19,7 @@ class camionTest {
 	
 	@Test
 	public void QueNoSePaseDelLimiteDeVolumen() {
-		Camion camion = new Camion();
+		Camion camion = new Camion(1);
 		Destino destino1 = new Destino("Moron", "acha 675");
 		Destino destino2 = new Destino("Moron", "Curupaity 628");
 		Paquete paquete1 = new Paquete(1.0, 1.0, 1.0, 15900.0, destino1);

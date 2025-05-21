@@ -8,10 +8,12 @@ public class Bicicleta extends Vehiculo{
 	
 	protected Set<String> ciudades = new HashSet<>();
 	
-	public Bicicleta() {
+	public Bicicleta(Integer codigo) {
+		super(codigo);
 		this.limiteVolumen = 0.125;
 		this.cantidadDestinos = 1;
 		this.limiteCapacidadKg = 15.0;
+		
 	
 	}
 
@@ -50,7 +52,7 @@ public class Bicicleta extends Vehiculo{
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Objects.hash(ciudades);
+		result = prime * result + Objects.hash(codigoDeVehiculo, ciudades);
 		return result;
 	}
 
@@ -62,8 +64,8 @@ public class Bicicleta extends Vehiculo{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Bicicleta other = (Bicicleta) obj;
-		return Objects.equals(ciudades, other.ciudades);
+		Automovil other = (Automovil) obj;
+		return Objects.equals(codigoDeVehiculo, other.codigoDeVehiculo);
 	}
 
 

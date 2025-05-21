@@ -1,17 +1,23 @@
 package ar.edu.unlam.empresaTransporte;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+
 
 public abstract class Vehiculo {
 	protected Double limiteVolumen;
 	protected Double limiteCapacidadKg;
 	protected Integer cantidadDestinos;
-	protected List<Paquete> paquetes = new ArrayList<>();
+	protected final Integer codigoDeVehiculo;
+	protected List<Paquete> paquetes = new LinkedList<>();
 	protected Double pesoAcumulado = 0.0;
 	protected Double volumenAcumulado = 0.0;
 
+	public Vehiculo(Integer codigo) {
+		codigoDeVehiculo = codigo;
+	}
+	
 	abstract protected Boolean puedeTransportar(Paquete paquete);
 
 	public Boolean agregarPaquete(Paquete paquete) {
@@ -31,11 +37,16 @@ public abstract class Vehiculo {
 		return true;
 	}
 
+	public List<Paquete> getPaquetes() {
+		return paquetes;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(cantidadDestinos, limiteCapacidadKg, limiteVolumen, paquetes, pesoAcumulado,
-				volumenAcumulado);
+				volumenAcumulado, codigoDeVehiculo);
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -48,8 +59,6 @@ public abstract class Vehiculo {
 		Vehiculo other = (Vehiculo) obj;
 		return Objects.equals(cantidadDestinos, other.cantidadDestinos)
 				&& Objects.equals(limiteCapacidadKg, other.limiteCapacidadKg)
-				&& Objects.equals(limiteVolumen, other.limiteVolumen) && Objects.equals(paquetes, other.paquetes)
-				&& Objects.equals(pesoAcumulado, other.pesoAcumulado)
-				&& Objects.equals(volumenAcumulado, other.volumenAcumulado);
+				&& Objects.equals(limiteVolumen, other.limiteVolumen) && Objects.equals(codigoDeVehiculo, other.codigoDeVehiculo);
 	}
 }
